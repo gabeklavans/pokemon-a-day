@@ -1,0 +1,30 @@
+{
+  "name": "pokemon-a-day",
+  "version": "0.0.1",
+  "description": "Digital Pokemon-a-day calendar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "start": "http-server dist"
+  },
+  "author": "Gabe Klavans",
+  "license": "ISC",
+  "devDependencies": {
+    "@webpack-cli/generators": "^2.4.1",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.5.1",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.13",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3",
+    "workbox-webpack-plugin": "^6.4.2"
+  }
+}
