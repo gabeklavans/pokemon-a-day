@@ -1,0 +1,55 @@
+html,
+body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+p, h1, h2, h3, h4 {
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	font-size: x-large;
+	font-size: 4vh;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-image: url("./assets/plat_bg.png");
+	background-size: contain;
+}
+
+#content, #date {
+	padding: 20px; 
+}
+
+#content {
+	display: flex;
+	flex-direction: column;
+	border-radius: 40px;
+	margin: 1%;
+	background-color: red;
+	flex-grow: 1;
+}
+
+#content > #blurb {
+	flex-shrink: 1;
+}
+
+#date {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0;
+	background-color: whitesmoke;
+	justify-content: flex-end;
+}
+
+#sprite {
+	margin: 0 3% 3% 0;
+	float: left;
+	height: 30vh;
+}

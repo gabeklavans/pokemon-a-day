@@ -9,64 +9,64 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-  },
-  devServer: {
-    open: true,
-    host: "localhost",
-    static: {
-      directory: path.join(__dirname, "dist"),
-    },
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Pokemon-a-Day Calendar",
-      template: "index.html",
-    }),
+	entry: "./src/index.ts",
+	watch: true,
+	output: {
+		path: path.resolve(__dirname, "dist"),
+		clean: true,
+	},
+	devServer: {
+		open: true,
+		static: {
+			directory: path.join(__dirname, "dist"),
+		},
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			title: "Pokemon-a-Day Calendar",
+			template: "index.html",
+		}),
 
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/i,
-        loader: "ts-loader",
-        exclude: ["/node_modules/"],
-      },
-      {
-        test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: "asset",
-      },
+		// Add your plugins here
+		// Learn more about plugins from https://webpack.js.org/configuration/plugins/
+	],
+	module: {
+		rules: [
+			{
+				test: /\.(ts|tsx)$/i,
+				loader: "ts-loader",
+				exclude: ["/node_modules/"],
+			},
+			{
+				test: /\.css$/i,
+				use: [stylesHandler, "css-loader"],
+			},
+			{
+				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+				type: "asset/resource",
+			},
 
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
-    ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
+			// Add your rules for custom modules here
+			// Learn more about loaders from https://webpack.js.org/loaders/
+		],
+	},
+	resolve: {
+		extensions: [".tsx", ".ts", ".js"],
+	},
 };
 
 module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
+	if (isProduction) {
+		config.mode = "production";
 
-    config.plugins.push(
-      new WorkboxWebpackPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-      })
-    );
-  } else {
-    config.mode = "development";
-  }
-  return config;
+		config.plugins.push(
+			new WorkboxWebpackPlugin.GenerateSW({
+				clientsClaim: true,
+				skipWaiting: true,
+			})
+		);
+	} else {
+		config.mode = "development";
+	}
+	return config;
 };
