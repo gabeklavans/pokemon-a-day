@@ -23,6 +23,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: "Pokemon-a-Day Calendar",
       template: "index.html",
     }),
 
