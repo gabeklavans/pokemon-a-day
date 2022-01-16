@@ -1,5 +1,9 @@
 import "./main.css";
-import CPokedex, { Pokemon, PokemonSpecies } from "pokedex-promise-v2";
+import CPokedex, {
+	Pokemon,
+	PokemonSpecies,
+	PokemonSpeciesFlavorTextEntry,
+} from "pokedex-promise-v2";
 const P = new CPokedex();
 
 const NUM_POKEMON = 898;
@@ -16,7 +20,19 @@ dateToPokemon(new Date())
 		);
 
 		const entry = $("#entry") as JQuery<HTMLParagraphElement>;
-		entry.text(pokemon.species.flavor_text_entries[0].flavor_text);
+		const flavorTexts = pokemon.species.flavor_text_entries.filter(
+			(fText) => {
+				return fText.language.name == "en";
+			}
+		);
+		console.log(pokemon.species.flavor_text_entries);
+
+		// this weird invisible char keeps coming back
+		entry.text(
+			sample<PokemonSpeciesFlavorTextEntry>(
+				flavorTexts
+			).flavor_text.replace("", " ")
+		);
 	})
 	.catch((e) => {
 		console.error(e);
@@ -25,7 +41,7 @@ dateToPokemon(new Date())
 async function dateToPokemon(date: Date) {
 	// replace with hash func
 	// const pokemonsList = await P.getPokemonsList();
-	const id = Math.floor(Math.random() * NUM_POKEMON);
+	const id = Math.ceil(Math.random() * (NUM_POKEMON - 1));
 	// console.log(pokemonsList.count);
 
 	const pokemon = (await P.getPokemonByName(id)) as Pokemon;
@@ -39,11 +55,15 @@ async function dateToPokemon(date: Date) {
 
 function formatName(str: string) {
 	let tokens = str.split("-");
-	tokens = tokens.map((token) => {
-		return token[0].toUpperCase() + token.slice(1).toLowerCase();
-	});
+	// tokens = tokens.map((token) => {
+	// 	return token[0].toUpperCase() + token.slice(1).toLowerCase();
+	// });
 
-	return tokens.join(" ");
+	return tokens.join(" ").toLocaleUpperCase();
+}
+
+function sample<T>(arr: T[]): T {
+	return arr[Math.floor(Math.random() * arr.length)];
 }
 
 console.log("Hi");

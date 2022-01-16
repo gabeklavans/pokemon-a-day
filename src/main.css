@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 html,
 body {
 	height: 100%;
@@ -5,9 +7,14 @@ body {
 	margin: 0;
 }
 
-p, h1, h2, h3, h4 {
+p,
+h1,
+h2,
+h3,
+h4 {
 	padding: 0;
 	margin: 0;
+	font-family: "Montserrat", sans-serif;
 }
 
 p {
@@ -23,8 +30,9 @@ p {
 	background-size: contain;
 }
 
-#content, #date {
-	padding: 20px; 
+#content,
+#date {
+	padding: 20px;
 }
 
 #content {
@@ -32,7 +40,8 @@ p {
 	flex-direction: column;
 	border-radius: 40px;
 	margin: 1%;
-	background-color: gray;
+	background-color: rgb(170, 170, 170);
+	border: 6px solid rgb(36, 36, 36);
 	flex-grow: 1;
 }
 
@@ -43,7 +52,7 @@ p {
 #date {
 	display: flex;
 	flex-direction: column;
-	margin: 10px 0;
+	margin-bottom: 1%;
 	background-color: whitesmoke;
 	justify-content: flex-end;
 }
