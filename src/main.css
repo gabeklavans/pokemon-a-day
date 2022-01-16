@@ -32,7 +32,7 @@ p {
 	flex-direction: column;
 	border-radius: 40px;
 	margin: 1%;
-	background-color: red;
+	background-color: gray;
 	flex-grow: 1;
 }
 
@@ -49,7 +49,7 @@ p {
 }
 
 #sprite {
-	margin: 0 3% 3% 0;
+	margin: 0 10px 10px 0;
 	float: left;
 	height: 30vh;
 }

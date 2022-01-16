@@ -3,6 +3,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const { ProvidePlugin } = require("webpack");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -25,6 +26,10 @@ const config = {
 		new HtmlWebpackPlugin({
 			title: "Pokemon-a-Day Calendar",
 			template: "index.html",
+		}),
+		new ProvidePlugin({
+			$: "jquery",
+			jQuery: "jquery",
 		}),
 
 		// Add your plugins here

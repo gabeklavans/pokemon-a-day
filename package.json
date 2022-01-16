@@ -26,5 +26,9 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.3",
     "workbox-webpack-plugin": "^6.4.2"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "pokedex-promise-v2": "^4.0.0"
   }
 }

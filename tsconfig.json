@@ -6,7 +6,8 @@
     "target": "es5",
     "allowJs": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+	"moduleResolution": "node"
   },
   "files": ["src/index.ts"]
 }
