@@ -1,14 +1,31 @@
 import "./main.css";
+import { shuffle } from "shuffle-seed";
+import {} from "date-fns";
 import CPokedex, {
 	Pokemon,
 	PokemonSpecies,
 	PokemonSpeciesFlavorTextEntry,
 } from "pokedex-promise-v2";
+import getDayOfYear from "date-fns/getDayOfYear";
+import getDaysInYear from "date-fns/getDaysInYear";
+import format from "date-fns/format";
+import startOfDay from "date-fns/startOfDay";
 const P = new CPokedex();
 
+// initialize globals
 const NUM_POKEMON = 898;
+const DEX_ID_LIST = Array(NUM_POKEMON + 1)
+	.fill(0)
+	.map((_, i) => i)
+	.splice(1);
 
-dateToPokemon(new Date())
+let curDate = startOfDay(new Date());
+
+// initialize calendar
+$("#day").text(format(curDate, "EEEE").toUpperCase());
+$("#date-string").text(format(curDate, "MMMM d").toUpperCase());
+
+dateToPokemon(curDate)
 	.then((pokemon) => {
 		const name = $("#name") as JQuery<HTMLHeadingElement>;
 		name.text(formatName(pokemon.pokemon.name));
@@ -25,27 +42,45 @@ dateToPokemon(new Date())
 				return fText.language.name == "en";
 			}
 		);
-		console.log(pokemon.species.flavor_text_entries);
+		const flavorTextEntry =
+			sample<PokemonSpeciesFlavorTextEntry>(flavorTexts);
+		const flavorText =
+			flavorTextEntry.flavor_text + ` (${flavorTextEntry.version.name})`;
+		// this weird invisible char keeps showing up
+		entry.text(flavorText.replace("", " "));
 
-		// this weird invisible char keeps coming back
-		entry.text(
-			sample<PokemonSpeciesFlavorTextEntry>(
-				flavorTexts
-			).flavor_text.replace("", " ")
+		$("#type").text(
+			formatNoun(
+				pokemon.pokemon.types.map((type) => type.type.name).join("/")
+			)
 		);
+
+		const genus = pokemon.species.genera.find(
+			(genus) => genus.language.name == "en"
+		)?.genus;
+		if (genus) {
+			$("#category").text(formatNoun(genus));
+		}
+
+		$("#height").text(pokemon.pokemon.height / 10.0 + " m");
+
+		$("#weight").text(pokemon.pokemon.weight / 10.0 + " kg");
 	})
 	.catch((e) => {
 		console.error(e);
 	});
 
 async function dateToPokemon(date: Date) {
-	// replace with hash func
-	// const pokemonsList = await P.getPokemonsList();
-	const id = Math.ceil(Math.random() * (NUM_POKEMON - 1));
-	// console.log(pokemonsList.count);
+	const yearStr = date.getFullYear().toString();
+	// this will always be the same list for a given year
+	const randomDexIds = shuffle(DEX_ID_LIST, yearStr).slice(
+		0,
+		getDaysInYear(date)
+	);
+	const dexId = randomDexIds[getDayOfYear(date) - 1];
 
-	const pokemon = (await P.getPokemonByName(id)) as Pokemon;
-	const species = (await P.getPokemonSpeciesByName(id)) as PokemonSpecies;
+	const pokemon = (await P.getPokemonByName(dexId)) as Pokemon;
+	const species = (await P.getPokemonSpeciesByName(dexId)) as PokemonSpecies;
 
 	return {
 		pokemon,
@@ -55,11 +90,12 @@ async function dateToPokemon(date: Date) {
 
 function formatName(str: string) {
 	let tokens = str.split("-");
-	// tokens = tokens.map((token) => {
-	// 	return token[0].toUpperCase() + token.slice(1).toLowerCase();
-	// });
 
 	return tokens.join(" ").toLocaleUpperCase();
+}
+
+function formatNoun(str: string) {
+	return str[0].toLocaleUpperCase() + str.slice(1).toLocaleLowerCase();
 }
 
 function sample<T>(arr: T[]): T {
