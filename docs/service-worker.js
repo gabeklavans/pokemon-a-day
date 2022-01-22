@@ -97,7 +97,7 @@ define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
     "revision": null
   }, {
     "url": "index.html",
-    "revision": "5df94704aa4525a5170890b05a268fa5"
+    "revision": "7535832066c7c1c715ebd7b4387b081c"
   }, {
     "url": "main.js",
     "revision": "0d9f675e0704d7cee0f01e347ca3592c"
@@ -107,7 +107,7 @@ define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
     plugins: [new workbox.ExpirationPlugin({
       maxEntries: 50
     }), new workbox.CacheableResponsePlugin({
-      statuses: [200]
+      statuses: [0, 200]
     })]
   }), 'GET');
 

@@ -41,7 +41,7 @@ const config = {
 							maxEntries: 50,
 						},
 						cacheableResponse: {
-							statuses: [200],
+							statuses: [0, 200],
 						},
 					},
 				},
@@ -53,7 +53,6 @@ const config = {
 			start_url: "./",
 			orientation: "landscape",
 			publicPath: "./",
-			crossorigin: "anonymous",
 		}),
 	],
 	module: {
