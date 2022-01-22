@@ -53,6 +53,14 @@ const config = {
 			start_url: "./",
 			orientation: "landscape",
 			publicPath: "./",
+			background_color: "#6cba48",
+			theme_color: "#6cba48",
+			icons: [
+				{
+					src: path.resolve(__dirname, "src/assets/pokeball.png"),
+					sizes: [96, 128, 192, 256, 384, 512],
+				},
+			],
 		}),
 	],
 	module: {

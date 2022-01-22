@@ -1,0 +1,41 @@
+{
+  "icons": [
+    {
+      "src": "./icon_512x512.6daf7a8ad36dc80aa41cdce03e54485f.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_384x384.9aff92a2771ef357e7f228c0dd02277f.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_256x256.7413efc51cdd780861a82098054d8d82.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_192x192.3aff2fc4bff633bdc530fcffe9b73dce.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_128x128.c4c2ab8254b074eed695e8e8655008e1.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_96x96.6a7c795861325df6d088b132fbd14bb3.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Pokemon-a-Day Calendar",
+  "short_name": "pkmn-a-day",
+  "orientation": "landscape",
+  "display": "standalone",
+  "start_url": "./",
+  "background_color": "#6cba48",
+  "theme_color": "#6cba48"
+}

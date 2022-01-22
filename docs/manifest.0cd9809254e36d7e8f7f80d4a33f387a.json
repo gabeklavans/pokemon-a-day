@@ -1,7 +1,0 @@
-{
-  "name": "Pokemon-a-Day Calendar",
-  "short_name": "pkmn-a-day",
-  "orientation": "landscape",
-  "display": "standalone",
-  "start_url": "./"
-}
