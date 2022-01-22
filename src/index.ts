@@ -2,6 +2,7 @@ import "./main.css";
 import { shuffle } from "shuffle-seed";
 import {} from "date-fns";
 import CPokedex, {
+	Pokedex,
 	Pokemon,
 	PokemonSpecies,
 	PokemonSpeciesFlavorTextEntry,
@@ -12,13 +13,43 @@ import format from "date-fns/format";
 import startOfDay from "date-fns/startOfDay";
 const P = new CPokedex();
 
-// initialize globals
-const NUM_POKEMON = 898;
-const DEX_ID_LIST = Array(NUM_POKEMON + 1)
-	.fill(0)
-	.map((_, i) => i)
-	.splice(1);
+import { registerRoute } from "workbox-routing";
+import { CacheFirst } from "workbox-strategies";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { ExpirationPlugin } from "workbox-expiration";
 
+// ====Workbox====
+registerRoute(
+	new RegExp(
+		"^https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
+	),
+	new CacheFirst({
+		cacheName: "images",
+		plugins: [
+			new CacheableResponsePlugin({
+				statuses: [0, 200],
+			}),
+			new ExpirationPlugin({
+				maxEntries: 50,
+				maxAgeSeconds: 60 * 60 * 24 * 7,
+			}),
+		],
+	})
+);
+
+registerRoute(
+	new RegExp("pokeapi.co/api"),
+	new CacheFirst({
+		cacheName: "pokeapi",
+		plugins: [
+			new CacheableResponsePlugin({
+				statuses: [200],
+			}),
+		],
+	})
+);
+
+// initialize globals
 let curDate = startOfDay(new Date());
 
 // initialize calendar
@@ -27,27 +58,25 @@ $("#date-string").text(format(curDate, "MMMM d").toUpperCase());
 
 dateToPokemon(curDate)
 	.then((pokemon) => {
-		const name = $("#name") as JQuery<HTMLHeadingElement>;
-		name.text(formatName(pokemon.pokemon.name));
+		$("#name").text(formatName(pokemon.pokemon.name));
 
-		const sprite = $("#sprite") as JQuery<HTMLImageElement>;
-		sprite.attr(
+		$("#sprite").attr(
 			"src",
 			pokemon.pokemon.sprites.other["official-artwork"].front_default
 		);
 
-		const entry = $("#entry") as JQuery<HTMLParagraphElement>;
-		const flavorTexts = pokemon.species.flavor_text_entries.filter(
+		const englishFlavTexts = pokemon.species.flavor_text_entries.filter(
 			(fText) => {
 				return fText.language.name == "en";
 			}
 		);
-		const flavorTextEntry =
-			sample<PokemonSpeciesFlavorTextEntry>(flavorTexts);
-		const flavorText =
-			flavorTextEntry.flavor_text + ` (${flavorTextEntry.version.name})`;
+		const flavTextEntry =
+			sample<PokemonSpeciesFlavorTextEntry>(englishFlavTexts);
 		// this weird invisible char keeps showing up
-		entry.text(flavorText.replace("", " "));
+		$("#entry").text(flavTextEntry.flavor_text.replace("", " "));
+		$("#ver").text(
+			`(ver: ${flavTextEntry.version.name.replace("-", " ")})`
+		);
 
 		$("#type").text(
 			formatNoun(
@@ -71,9 +100,17 @@ dateToPokemon(curDate)
 	});
 
 async function dateToPokemon(date: Date) {
+	// create list of all ids
+	const numPokemon = ((await P.getPokedexByName("national")) as Pokedex)
+		.pokemon_entries.length;
+	const dexidList = Array(numPokemon + 1)
+		.fill(0)
+		.map((_, i) => i)
+		.splice(1);
+
+	// get random order of IDs seeded by the year
 	const yearStr = date.getFullYear().toString();
-	// this will always be the same list for a given year
-	const randomDexIds = shuffle(DEX_ID_LIST, yearStr).slice(
+	const randomDexIds = shuffle(dexidList, yearStr).slice(
 		0,
 		getDaysInYear(date)
 	);

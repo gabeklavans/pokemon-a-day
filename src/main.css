@@ -48,6 +48,11 @@ p {
 	flex-shrink: 1;
 }
 
+#content > #blurb > #ver {
+	font-size: 3.5vh;
+	font-style: italic;
+}
+
 #details {
 	display: flex;
 }

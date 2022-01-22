@@ -31,9 +31,11 @@ const config = {
 			$: "jquery",
 			jQuery: "jquery",
 		}),
-
-		// Add your plugins here
-		// Learn more about plugins from https://webpack.js.org/configuration/plugins/
+		new WorkboxWebpackPlugin.GenerateSW({
+			clientsClaim: true,
+			skipWaiting: true,
+			mode: 'development'
+		}),
 	],
 	module: {
 		rules: [
@@ -64,14 +66,9 @@ module.exports = () => {
 	if (isProduction) {
 		config.mode = "production";
 
-		config.plugins.push(
-			new WorkboxWebpackPlugin.GenerateSW({
-				clientsClaim: true,
-				skipWaiting: true,
-			})
-		);
 	} else {
 		config.mode = "development";
+
 	}
 	return config;
 };
