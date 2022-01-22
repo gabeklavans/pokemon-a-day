@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-37481be9'], (function (workbox) { 'use strict';
+define(['./workbox-1f97ac10'], (function (workbox) { 'use strict';
 
   /**
   * Welcome to your Workbox-powered service worker!
@@ -100,7 +100,13 @@ define(['./workbox-37481be9'], (function (workbox) { 'use strict';
     "revision": "5df94704aa4525a5170890b05a268fa5"
   }, {
     "url": "main.js",
-    "revision": "d0c1694f3f30de893afe3da122bee5a0"
+    "revision": "0d9f675e0704d7cee0f01e347ca3592c"
   }], {});
+  workbox.registerRoute("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/447.png", new workbox.CacheFirst({
+    "cacheName": "riolu",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 50
+    })]
+  }), 'GET');
 
 }));

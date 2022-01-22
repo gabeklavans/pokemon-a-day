@@ -29,6 +29,19 @@ const config = {
 			clientsClaim: true,
 			skipWaiting: true,
 			mode: "development",
+			runtimeCaching: [
+				{
+					handler: "CacheFirst",
+					urlPattern:
+						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/447.png",
+					options: {
+						cacheName: "riolu",
+						expiration: {
+							maxEntries: 50,
+						},
+					},
+				},
+			],
 		}),
 		new WebpackPwaManifest({
 			name: "Pokemon-a-Day Calendar",
