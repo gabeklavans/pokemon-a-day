@@ -96,8 +96,11 @@ define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
     "url": "a7853bc4de854228e82a.png",
     "revision": null
   }, {
+    "url": "assets/favicon.png",
+    "revision": "5475782fdecc25f80d7790cc45ea75a1"
+  }, {
     "url": "index.html",
-    "revision": "7854e15eff7ba2a37e71eda130dfe6b7"
+    "revision": "d6094075ab0433b51b5492773302cf7f"
   }, {
     "url": "main.js",
     "revision": "0d9f675e0704d7cee0f01e347ca3592c"

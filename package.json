@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "date-fns": "^2.28.0",
+    "favicons-webpack-plugin": "^5.0.2",
     "jquery": "^3.6.0",
     "pokedex-promise-v2": "^4.0.0",
     "random": "^3.0.6",

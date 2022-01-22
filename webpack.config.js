@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -21,6 +22,9 @@ const config = {
 			title: "Pokemon-a-Day Calendar",
 			template: "index.html",
 		}),
+		new FaviconsWebpackPlugin(
+			path.resolve(__dirname, "src/assets/pokeball.png")
+		),
 		new ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
