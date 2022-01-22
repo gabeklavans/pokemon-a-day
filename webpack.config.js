@@ -33,7 +33,9 @@ const config = {
 		new WebpackPwaManifest({
 			name: "Pokemon-a-Day Calendar",
 			short_name: "pkmn-a-day",
-			start_url: "./"
+			start_url: "./",
+			orientation: "landscape",
+			publicPath: "./"
 		}),
 	],
 	module: {
