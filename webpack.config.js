@@ -32,7 +32,6 @@ const config = {
 		new WorkboxWebpackPlugin.GenerateSW({
 			clientsClaim: true,
 			skipWaiting: true,
-			mode: "development",
 			runtimeCaching: [
 				{
 					handler: "CacheFirst",
