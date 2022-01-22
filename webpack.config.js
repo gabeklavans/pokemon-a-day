@@ -32,8 +32,9 @@ const config = {
 			runtimeCaching: [
 				{
 					handler: "CacheFirst",
-					urlPattern:
-						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork",
+					urlPattern: new RegExp(
+						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
+					),
 					options: {
 						cacheName: "riolu",
 						expiration: {

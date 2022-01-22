@@ -102,7 +102,7 @@ define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
     "url": "main.js",
     "revision": "0d9f675e0704d7cee0f01e347ca3592c"
   }], {});
-  workbox.registerRoute("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork", new workbox.CacheFirst({
+  workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.CacheFirst({
     "cacheName": "riolu",
     plugins: [new workbox.ExpirationPlugin({
       maxEntries: 50
