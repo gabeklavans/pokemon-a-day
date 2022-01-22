@@ -19,26 +19,31 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { ExpirationPlugin } from "workbox-expiration";
 
 // ====Workbox====
-// registerRoute(
-// 	new RegExp(
-// 		"^https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
-// 	),
-// 	new CacheFirst({
-// 		cacheName: "images",
-// 	})
-// );
+registerRoute(
+	new RegExp(
+		"^https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
+	),
+	new CacheFirst({
+		cacheName: "images",
+		plugins: [
+			new CacheableResponsePlugin({
+				statuses: [0, 200],
+			}),
+		],
+	})
+);
 
-// registerRoute(
-// 	new RegExp("pokeapi.co/api"),
-// 	new CacheFirst({
-// 		cacheName: "pokeapi",
-// 		plugins: [
-// 			new CacheableResponsePlugin({
-// 				statuses: [200],
-// 			}),
-// 		],
-// 	})
-// );
+registerRoute(
+	new RegExp("pokeapi.co/api"),
+	new CacheFirst({
+		cacheName: "pokeapi",
+		plugins: [
+			new CacheableResponsePlugin({
+				statuses: [0, 200],
+			}),
+		],
+	})
+);
 
 // initialize globals
 let curDate = startOfDay(new Date());

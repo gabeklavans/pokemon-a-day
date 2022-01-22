@@ -35,7 +35,8 @@ const config = {
 			short_name: "pkmn-a-day",
 			start_url: "./",
 			orientation: "landscape",
-			publicPath: "./"
+			publicPath: "./",
+			crossorigin: "anonymous",
 		}),
 	],
 	module: {
