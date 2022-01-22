@@ -13,14 +13,8 @@ const config = {
 	entry: "./src/index.ts",
 	watch: true,
 	output: {
-		path: path.resolve(__dirname, "dist"),
+		path: path.resolve(__dirname, "docs"),
 		clean: true,
-	},
-	devServer: {
-		open: true,
-		static: {
-			directory: path.join(__dirname, "dist"),
-		},
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
