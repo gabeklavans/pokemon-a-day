@@ -33,11 +33,14 @@ const config = {
 				{
 					handler: "CacheFirst",
 					urlPattern:
-						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/447.png",
+						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork",
 					options: {
 						cacheName: "riolu",
 						expiration: {
 							maxEntries: 50,
+						},
+						cacheableResponse: {
+							statuses: [200],
 						},
 					},
 				},
