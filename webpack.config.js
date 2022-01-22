@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -11,7 +12,6 @@ const stylesHandler = "style-loader";
 
 const config = {
 	entry: "./src/index.ts",
-	watch: true,
 	output: {
 		path: path.resolve(__dirname, "docs"),
 		clean: true,
@@ -28,7 +28,11 @@ const config = {
 		new WorkboxWebpackPlugin.GenerateSW({
 			clientsClaim: true,
 			skipWaiting: true,
-			mode: 'development'
+			mode: "development",
+		}),
+		new WebpackPwaManifest({
+			name: "Pokemon-a-Day Calendar",
+			short_name: "pkmn-a-day",
 		}),
 	],
 	module: {
@@ -59,10 +63,8 @@ const config = {
 module.exports = () => {
 	if (isProduction) {
 		config.mode = "production";
-
 	} else {
 		config.mode = "development";
-
 	}
 	return config;
 };

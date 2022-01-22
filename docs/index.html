@@ -1,4 +1,56 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Pokemon-a-day Calendar</title><script defer="defer" src="main.js"></script></head><body><div id="main"><div id="content"><div id="blurb"><img id="sprite" alt="Ditto" src="a7853bc4de854228e82a.png"/><h1 id="name">MISSINGNO.</h1><p id="entry">I dunno, ask the professor!</p><p id="ver"></p></div><div id="details"><div class="detail"><p class="detail-name">TYPE</p><p id="type" class="detail-value">???</p></div><div class="detail"><p class="detail-name">CATEGORY</p><p id="category" class="detail-value">???</p></div><div class="detail"><p class="detail-name">HEIGHT</p><p id="height" class="detail-value">???</p></div><div class="detail"><p class="detail-name">WEIGHT</p><p id="weight" class="detail-value">???</p></div></div></div><div id="date"><h3 id="day">FRIDAY</h3><div id="date-string-wrapper"><h1 id="date-string">DECEMBER 31</h1><h3 id="year">2021</h3></div></div></div></body><script>if ("serviceWorker" in navigator) {
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>Pokemon-a-day Calendar</title>
+	<script defer src="main.js"></script><link rel="manifest" href="auto/manifest.dfc28c29f0962d6a6350c3a9d96dc829.json" /></head>
+	<body>
+		<div id="main">
+			<div id="content">
+				<div id="blurb">
+					<img
+						id="sprite"
+						alt="Ditto"
+						src="a7853bc4de854228e82a.png"
+					/>
+					<h1 id="name">MISSINGNO.</h1>
+					<p id="entry">I dunno, ask the professor!</p>
+					<p id="ver"></p>
+				</div>
+				<div id="details">
+					<div class="detail">
+						<p class="detail-name">TYPE</p>
+						<p id="type" class="detail-value">???</p>
+					</div>
+					<div class="detail">
+						<p class="detail-name">CATEGORY</p>
+						<p id="category" class="detail-value">???</p>
+					</div>
+					<div class="detail">
+						<p class="detail-name">HEIGHT</p>
+						<p id="height" class="detail-value">???</p>
+					</div>
+					<div class="detail">
+						<p class="detail-name">WEIGHT</p>
+						<p id="weight" class="detail-value">???</p>
+					</div>
+				</div>
+			</div>
+			<div id="date">
+				<h3 id="day">FRIDAY</h3>
+				<div id="date-string-wrapper">
+					<h1 id="date-string">DECEMBER 31</h1>
+					<h3 id="year">2021</h4>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		if ("serviceWorker" in navigator) {
 			window.addEventListener("load", () => {
 				navigator.serviceWorker
 					.register("service-worker.js")
@@ -15,4 +67,6 @@
 						);
 					});
 			});
-		}</script></html>
+		}
+	</script>
+</html>
