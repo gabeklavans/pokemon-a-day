@@ -13,38 +13,6 @@ import format from "date-fns/format";
 import startOfDay from "date-fns/startOfDay";
 const P = new CPokedex();
 
-import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
-import { ExpirationPlugin } from "workbox-expiration";
-
-// ====Workbox====
-// registerRoute(
-// 	new RegExp(
-// 		".+/PokeAPI/.+"
-// 	),
-// 	new CacheFirst({
-// 		cacheName: "images",
-// 		plugins: [
-// 			new CacheableResponsePlugin({
-// 				statuses: [0, 200],
-// 			}),
-// 		],
-// 	})
-// );
-
-// registerRoute(
-// 	new RegExp("pokeapi.co/api"),
-// 	new CacheFirst({
-// 		cacheName: "pokeapi",
-// 		plugins: [
-// 			new CacheableResponsePlugin({
-// 				statuses: [0, 200],
-// 			}),
-// 		],
-// 	})
-// );
-
 // initialize globals
 let curDate = startOfDay(new Date());
 
@@ -52,48 +20,50 @@ let curDate = startOfDay(new Date());
 $("#day").text(format(curDate, "EEEE").toUpperCase());
 $("#date-string").text(format(curDate, "MMMM d").toUpperCase());
 
-dateToPokemon(curDate)
-	.then((pokemon) => {
-		$("#name").text(formatName(pokemon.pokemon.name));
+async function initialize() {
+	displayPokemon(curDate);
 
-		$("#sprite").attr(
-			"src",
-			pokemon.pokemon.sprites.other["official-artwork"].front_default
-		);
+	// TODO: get range of dates around curDate and dateToPokemon on them all
+}
 
-		const englishFlavTexts = pokemon.species.flavor_text_entries.filter(
-			(fText) => {
-				return fText.language.name == "en";
-			}
-		);
-		const flavTextEntry =
-			sample<PokemonSpeciesFlavorTextEntry>(englishFlavTexts);
-		// this weird invisible char keeps showing up
-		$("#entry").text(flavTextEntry.flavor_text.replace("", " "));
-		$("#ver").text(
-			`(ver: ${flavTextEntry.version.name.replace("-", " ")})`
-		);
+async function displayPokemon(date: Date) {
+	const pokemon = await dateToPokemon(date);
 
-		$("#type").text(
-			formatNoun(
-				pokemon.pokemon.types.map((type) => type.type.name).join("/")
-			)
-		);
+	$("#name").text(formatName(pokemon.pokemon.name));
 
-		const genus = pokemon.species.genera.find(
-			(genus) => genus.language.name == "en"
-		)?.genus;
-		if (genus) {
-			$("#category").text(formatNoun(genus));
+	$("#sprite").attr(
+		"src",
+		pokemon.pokemon.sprites.other["official-artwork"].front_default
+	);
+
+	const englishFlavTexts = pokemon.species.flavor_text_entries.filter(
+		(fText) => {
+			return fText.language.name == "en";
 		}
+	);
+	const flavTextEntry =
+		sample<PokemonSpeciesFlavorTextEntry>(englishFlavTexts);
+	// this weird invisible char keeps showing up
+	$("#entry").text(flavTextEntry.flavor_text.replace("", " "));
+	$("#ver").text(`(ver: ${flavTextEntry.version.name.replace("-", " ")})`);
 
-		$("#height").text(pokemon.pokemon.height / 10.0 + " m");
+	$("#type").text(
+		formatNoun(
+			pokemon.pokemon.types.map((type) => type.type.name).join("/")
+		)
+	);
 
-		$("#weight").text(pokemon.pokemon.weight / 10.0 + " kg");
-	})
-	.catch((e) => {
-		console.error(e);
-	});
+	const genus = pokemon.species.genera.find(
+		(genus) => genus.language.name == "en"
+	)?.genus;
+	if (genus) {
+		$("#category").text(formatNoun(genus));
+	}
+
+	$("#height").text(pokemon.pokemon.height / 10.0 + " m");
+
+	$("#weight").text(pokemon.pokemon.weight / 10.0 + " kg");
+}
 
 async function dateToPokemon(date: Date) {
 	// create list of all ids
