@@ -39,9 +39,22 @@ const config = {
 						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 					),
 					options: {
-						cacheName: "riolu",
+						cacheName: "sprites",
 						expiration: {
 							maxEntries: 50,
+						},
+						cacheableResponse: {
+							statuses: [0, 200],
+						},
+					},
+				},
+				{
+					handler: "StaleWhileRevalidate",
+					urlPattern: new RegExp("https://pokeapi.co/api/v2"),
+					options: {
+						cacheName: "pokeApi",
+						expiration: {
+							maxEntries: 50 * 3,
 						},
 						cacheableResponse: {
 							statuses: [0, 200],

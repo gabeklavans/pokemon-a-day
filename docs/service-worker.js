@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
+define(['./workbox-29ee4d7b'], (function (workbox) { 'use strict';
 
   /**
   * Welcome to your Workbox-powered service worker!
@@ -106,9 +106,17 @@ define(['./workbox-b9f1b279'], (function (workbox) { 'use strict';
     "revision": "0d9f675e0704d7cee0f01e347ca3592c"
   }], {});
   workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.CacheFirst({
-    "cacheName": "riolu",
+    "cacheName": "sprites",
     plugins: [new workbox.ExpirationPlugin({
       maxEntries: 50
+    }), new workbox.CacheableResponsePlugin({
+      statuses: [0, 200]
+    })]
+  }), 'GET');
+  workbox.registerRoute(/https:\/\/pokeapi.co\/api\/v2/, new workbox.StaleWhileRevalidate({
+    "cacheName": "pokeApi",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 150
     }), new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
     })]
