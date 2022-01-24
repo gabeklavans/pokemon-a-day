@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-29ee4d7b'], (function (workbox) { 'use strict';
+define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
 
   /**
   * Welcome to your Workbox-powered service worker!
@@ -105,7 +105,7 @@ define(['./workbox-29ee4d7b'], (function (workbox) { 'use strict';
     "url": "main.js",
     "revision": "0d9f675e0704d7cee0f01e347ca3592c"
   }], {});
-  workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.CacheFirst({
+  workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.StaleWhileRevalidate({
     "cacheName": "sprites",
     plugins: [new workbox.ExpirationPlugin({
       maxEntries: 50

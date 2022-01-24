@@ -34,7 +34,7 @@ const config = {
 			skipWaiting: true,
 			runtimeCaching: [
 				{
-					handler: "CacheFirst",
+					handler: "StaleWhileRevalidate",
 					urlPattern: new RegExp(
 						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 					),
