@@ -23,9 +23,6 @@ const DAYS_AHEAD = Math.trunc(DAY_BUFFER_SIZE / 2);
 let curDate = startOfDay(new Date());
 const body = $("#main");
 
-// initialize calendar
-$("#day").text(format(curDate, "EEEE").toUpperCase());
-$("#date-string").text(format(curDate, "MMMM d").toUpperCase());
 // set up controls
 document.onkeydown = (ev) => {
 	switch (ev.key) {
@@ -41,9 +38,6 @@ document.onclick = (ev) => {
 	const { clientX } = ev;
 	const width = body.innerWidth();
 
-	console.log(clientX);
-	console.log(width);
-
 	if (width) {
 		if (clientX < width / 2) {
 			rewindDay().catch(console.error);
@@ -54,6 +48,8 @@ document.onclick = (ev) => {
 		console.warn("Window width could not be determined!");
 	}
 };
+
+// initialize calendar
 initialize()
 	.then(() => {
 		console.log("Calendar initialized!");
@@ -70,6 +66,9 @@ async function initialize() {
 		start: subDays(curDate, DAYS_BEHIND),
 		end: addDays(curDate, DAYS_AHEAD),
 	});
+	// TODO: this is getting different pokemon than advance and rewind. why?
+	console.log(daysBuffer);
+
 	for (const day of daysBuffer) {
 		// fetch the pokemon so the cache can catch it
 		await dateToPokemon(day);
@@ -93,6 +92,9 @@ async function rewindDay() {
 }
 
 async function displayPokemon(date: Date) {
+	$("#day").text(format(curDate, "EEEE").toUpperCase());
+	$("#date-string").text(format(curDate, "MMMM d").toUpperCase());
+
 	const pokemon = await dateToPokemon(date);
 
 	$("#name").text(formatName(pokemon.pokemon.name));

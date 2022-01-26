@@ -103,7 +103,7 @@ define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
     "revision": "d6094075ab0433b51b5492773302cf7f"
   }, {
     "url": "main.js",
-    "revision": "f6322430d023e70249dade6fe7d39ac5"
+    "revision": "8e3f240c75d516b6de4ff38db9b13dcb"
   }], {});
   workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.StaleWhileRevalidate({
     "cacheName": "sprites",
