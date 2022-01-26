@@ -1,29 +1,95 @@
 import "./main.css";
 import { shuffle } from "shuffle-seed";
-import {} from "date-fns";
+import { Key } from "ts-key-enum";
 import CPokedex, {
 	Pokedex,
 	Pokemon,
 	PokemonSpecies,
 	PokemonSpeciesFlavorTextEntry,
 } from "pokedex-promise-v2";
+const P = new CPokedex();
 import getDayOfYear from "date-fns/getDayOfYear";
 import getDaysInYear from "date-fns/getDaysInYear";
 import format from "date-fns/format";
 import startOfDay from "date-fns/startOfDay";
-const P = new CPokedex();
+import eachDayOfInterval from "date-fns/eachDayOfInterval";
+import subDays from "date-fns/subDays";
+import addDays from "date-fns/addDays";
 
 // initialize globals
+const DAY_BUFFER_SIZE = 50; // curDay inclusive
+const DAYS_BEHIND = Math.ceil(DAY_BUFFER_SIZE / 2 - 1);
+const DAYS_AHEAD = Math.trunc(DAY_BUFFER_SIZE / 2);
 let curDate = startOfDay(new Date());
+const body = $("#main");
 
 // initialize calendar
 $("#day").text(format(curDate, "EEEE").toUpperCase());
 $("#date-string").text(format(curDate, "MMMM d").toUpperCase());
+// set up controls
+document.onkeydown = (ev) => {
+	switch (ev.key) {
+		case Key.ArrowRight:
+			advanceDay().catch(console.error);
+			break;
+		case Key.ArrowLeft:
+			rewindDay().catch(console.error);
+			break;
+	}
+};
+document.onclick = (ev) => {
+	const { clientX } = ev;
+	const width = body.innerWidth();
+
+	console.log(clientX);
+	console.log(width);
+
+	if (width) {
+		if (clientX < width / 2) {
+			rewindDay().catch(console.error);
+		} else {
+			advanceDay().catch(console.error);
+		}
+	} else {
+		console.warn("Window width could not be determined!");
+	}
+};
+initialize()
+	.then(() => {
+		console.log("Calendar initialized!");
+	})
+	.catch((err) => {
+		console.error(err);
+	});
 
 async function initialize() {
-	displayPokemon(curDate);
+	await displayPokemon(curDate);
 
-	// TODO: get range of dates around curDate and dateToPokemon on them all
+	// cache pokemon in interval around current date
+	const daysBuffer = eachDayOfInterval({
+		start: subDays(curDate, DAYS_BEHIND),
+		end: addDays(curDate, DAYS_AHEAD),
+	});
+	for (const day of daysBuffer) {
+		// fetch the pokemon so the cache can catch it
+		await dateToPokemon(day);
+	}
+}
+
+async function advanceDay() {
+	curDate = addDays(curDate, 1);
+	await displayPokemon(curDate);
+
+	// cache one more day out
+	await dateToPokemon(addDays(curDate, DAYS_AHEAD));
+}
+
+async function rewindDay() {
+	curDate = subDays(curDate, 1);
+	await displayPokemon(curDate);
+
+	// cache one more day behind
+	await dateToPokemon(subDays(curDate, DAYS_BEHIND));
 }
 
 async function displayPokemon(date: Date) {

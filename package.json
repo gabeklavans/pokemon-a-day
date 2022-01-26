@@ -39,6 +39,7 @@
     "random": "^3.0.6",
     "seedrandom": "^3.0.5",
     "shuffle-seed": "^1.1.6",
+    "ts-key-enum": "^2.0.8",
     "webpack-pwa-manifest": "^4.3.0"
   }
 }
