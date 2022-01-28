@@ -17,7 +17,7 @@ import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 
 // initialize globals
-const DAY_BUFFER_SIZE = 7; // curDay inclusive
+const DAY_BUFFER_SIZE = 3; // curDay inclusive
 const DAYS_BEHIND = Math.ceil(DAY_BUFFER_SIZE / 2 - 1);
 const DAYS_AHEAD = Math.trunc(DAY_BUFFER_SIZE / 2);
 let curDate = startOfDay(new Date());

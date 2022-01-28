@@ -100,15 +100,15 @@ define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
     "revision": "5475782fdecc25f80d7790cc45ea75a1"
   }, {
     "url": "index.html",
-    "revision": "d6094075ab0433b51b5492773302cf7f"
+    "revision": "de2b8678c943b1befe9d513840b147eb"
   }, {
     "url": "main.js",
-    "revision": "acbf7c5523afee37231c93dbecacbbe8"
+    "revision": "3f1cd364e3c9bf5ff53a33aeccf2412c"
   }], {});
   workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.StaleWhileRevalidate({
     "cacheName": "sprites",
     plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 50
+      maxEntries: 7
     }), new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
     })]
@@ -116,7 +116,7 @@ define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
   workbox.registerRoute(/https:\/\/pokeapi.co\/api\/v2/, new workbox.StaleWhileRevalidate({
     "cacheName": "pokeApi",
     plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 150
+      maxEntries: 21
     }), new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
     })]

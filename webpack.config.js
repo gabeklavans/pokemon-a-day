@@ -41,7 +41,7 @@ const config = {
 					options: {
 						cacheName: "sprites",
 						expiration: {
-							maxEntries: 50,
+							maxEntries: 7,
 						},
 						cacheableResponse: {
 							statuses: [0, 200],
@@ -54,7 +54,7 @@ const config = {
 					options: {
 						cacheName: "pokeApi",
 						expiration: {
-							maxEntries: 50 * 3,
+							maxEntries: 7 * 3,
 						},
 						cacheableResponse: {
 							statuses: [0, 200],
@@ -65,7 +65,7 @@ const config = {
 		}),
 		new WebpackPwaManifest({
 			name: "Pokemon-a-Day Calendar",
-			short_name: "pkmn-a-day",
+			short_name: "Pokemon-a-Day",
 			start_url: "./",
 			orientation: "landscape",
 			publicPath: "./",
@@ -75,8 +75,16 @@ const config = {
 				{
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
 					sizes: [96, 128, 192, 256, 384, 512],
+					ios: "startup",
+				},
+				{
+					src: path.resolve(__dirname, "src/assets/pokeball.png"),
+					size: 1024,
+					ios: "startup",
 				},
 			],
+			inject: true,
+			ios: true,
 		}),
 	],
 	module: {

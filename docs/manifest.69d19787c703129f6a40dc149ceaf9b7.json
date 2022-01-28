@@ -1,6 +1,11 @@
 {
   "icons": [
     {
+      "src": "./icon_1024x1024.7b8e73b74f2d20191fccc9645e5d30f3.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
       "src": "./icon_512x512.6daf7a8ad36dc80aa41cdce03e54485f.png",
       "sizes": "512x512",
       "type": "image/png"
@@ -32,7 +37,7 @@
     }
   ],
   "name": "Pokemon-a-Day Calendar",
-  "short_name": "pkmn-a-day",
+  "short_name": "Pokemon-a-Day",
   "orientation": "landscape",
   "display": "standalone",
   "start_url": "./",
