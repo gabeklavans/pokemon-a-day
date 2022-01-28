@@ -62,7 +62,7 @@
     }
   ],
   "name": "Pokemon-a-Day Calendar",
-  "short_name": "Pokemon-a-Day",
+  "short_name": "Pkmn-A-Day",
   "orientation": "landscape",
   "display": "standalone",
   "start_url": "./",

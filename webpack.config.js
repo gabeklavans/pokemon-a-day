@@ -65,7 +65,7 @@ const config = {
 		}),
 		new WebpackPwaManifest({
 			name: "Pokemon-a-Day Calendar",
-			short_name: "Pokemon-a-Day",
+			short_name: "Pkmn-A-Day",
 			start_url: "./",
 			orientation: "landscape",
 			publicPath: "./",
@@ -85,7 +85,7 @@ const config = {
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
 					sizes: [120, 152, 167, 180, 1024],
 					ios: {
-						"apple-mobile-web-app-title": "Pokemon-a-Day",
+						"apple-mobile-web-app-title": "Pkmn-A-Day",
 					},
 				},
 			],
