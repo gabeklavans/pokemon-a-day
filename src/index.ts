@@ -17,7 +17,7 @@ import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 
 // initialize globals
-const DAY_BUFFER_SIZE = 3; // curDay inclusive
+const DAY_BUFFER_SIZE = 7; // curDay inclusive
 const DAYS_BEHIND = Math.ceil(DAY_BUFFER_SIZE / 2 - 1);
 const DAYS_AHEAD = Math.trunc(DAY_BUFFER_SIZE / 2);
 let curDate = startOfDay(new Date());
@@ -66,20 +66,15 @@ async function initialize() {
 		start: subDays(curDate, DAYS_BEHIND),
 		end: addDays(curDate, DAYS_AHEAD),
 	});
-	// TODO: this is getting different pokemon than advance and rewind. why? try smaller interval
-	console.log(daysBuffer);
 
 	for (const day of daysBuffer) {
 		// fetch the pokemon so the cache can catch it
-		console.log(`====Fetching for ${day.toDateString()}`);
-
 		await dateToPokemon(day);
 	}
 }
 
 async function advanceDay() {
 	curDate = addDays(curDate, 1);
-	console.log(`+++++++Displaying for ${curDate.toDateString()}`);
 	await displayPokemon(curDate);
 
 	// cache one more day out
@@ -156,6 +151,12 @@ async function dateToPokemon(date: Date) {
 	const pokemon = (await P.getPokemonByName(dexId)) as Pokemon;
 	const species = (await P.getPokemonSpeciesByName(dexId)) as PokemonSpecies;
 
+	// request sprite for caching
+	const url = pokemon.sprites.other["official-artwork"].front_default;
+	if (url) {
+		await fetch(url, { method: "GET", mode: "no-cors" });
+	}
+
 	return {
 		pokemon,
 		species,
@@ -175,5 +176,3 @@ function formatNoun(str: string) {
 function sample<T>(arr: T[]): T {
 	return arr[Math.floor(Math.random() * arr.length)];
 }
-
-console.log("Hi");
