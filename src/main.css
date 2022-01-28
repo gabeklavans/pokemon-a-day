@@ -27,6 +27,7 @@ p {
 	height: 100%;
 	background-image: url("./assets/plat_bg.png");
 	background-size: contain;
+	touch-action: manipulation;
 }
 
 #content,

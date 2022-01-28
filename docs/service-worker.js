@@ -100,10 +100,10 @@ define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
     "revision": "5475782fdecc25f80d7790cc45ea75a1"
   }, {
     "url": "index.html",
-    "revision": "de2b8678c943b1befe9d513840b147eb"
+    "revision": "9a6507c45cb1f7277eda47f59f8aa131"
   }, {
     "url": "main.js",
-    "revision": "5d660f5eebe4a92dc00dc86defe412a7"
+    "revision": "6e4dcb43c57b3e663322d67f114c7e83"
   }], {});
   workbox.registerRoute(/https:\/\/raw.githubusercontent.com\/PokeAPI\/sprites\/master\/sprites\/pokemon\/other\/official-artwork/, new workbox.StaleWhileRevalidate({
     "cacheName": "sprites",

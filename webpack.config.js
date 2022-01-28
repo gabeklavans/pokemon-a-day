@@ -75,7 +75,7 @@ const config = {
 				{
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
 					sizes: [96, 128, 192, 256, 384, 512],
-					ios: "startup",
+					ios: "default",
 				},
 				{
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
@@ -84,7 +84,6 @@ const config = {
 				},
 			],
 			inject: true,
-			ios: true,
 		}),
 	],
 	module: {
