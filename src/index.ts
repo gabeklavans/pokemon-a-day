@@ -71,12 +71,15 @@ async function initialize() {
 
 	for (const day of daysBuffer) {
 		// fetch the pokemon so the cache can catch it
+		console.log(`====Fetching for ${day.toDateString()}`);
+
 		await dateToPokemon(day);
 	}
 }
 
 async function advanceDay() {
 	curDate = addDays(curDate, 1);
+	console.log(`+++++++Displaying for ${curDate.toDateString()}`);
 	await displayPokemon(curDate);
 
 	// cache one more day out
