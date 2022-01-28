@@ -100,7 +100,7 @@ define(['./workbox-0a7064ed'], (function (workbox) { 'use strict';
     "revision": "5475782fdecc25f80d7790cc45ea75a1"
   }, {
     "url": "index.html",
-    "revision": "9a6507c45cb1f7277eda47f59f8aa131"
+    "revision": "45184ed3bc4ecfd008569fc2f33c7a19"
   }, {
     "url": "main.js",
     "revision": "6e4dcb43c57b3e663322d67f114c7e83"

@@ -75,15 +75,22 @@ const config = {
 				{
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
 					sizes: [96, 128, 192, 256, 384, 512],
-					ios: "default",
 				},
 				{
 					src: path.resolve(__dirname, "src/assets/pokeball.png"),
 					size: 1024,
 					ios: "startup",
 				},
+				{
+					src: path.resolve(__dirname, "src/assets/pokeball.png"),
+					sizes: [120, 152, 167, 180, 1024],
+					ios: {
+						"apple-mobile-web-app-title": "Pokemon-a-Day",
+					},
+				},
 			],
 			inject: true,
+			ios: true,
 		}),
 	],
 	module: {
