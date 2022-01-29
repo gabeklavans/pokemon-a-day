@@ -92,6 +92,7 @@ async function rewindDay() {
 async function displayPokemon(date: Date) {
 	$("#day").text(format(curDate, "EEEE").toUpperCase());
 	$("#date-string").text(format(curDate, "MMMM d").toUpperCase());
+	$("#year").text(format(curDate, "y"))
 
 	const pokemon = await dateToPokemon(date);
 
