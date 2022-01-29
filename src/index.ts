@@ -16,6 +16,15 @@ import eachDayOfInterval from "date-fns/eachDayOfInterval";
 import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 
+type ResizableText = {
+	element: JQuery<HTMLElement>;
+	parent: JQuery<HTMLElement>;
+};
+type Dimensions = {
+	height: number;
+	width: number;
+};
+
 // initialize globals
 const DAY_BUFFER_SIZE = 7; // curDay inclusive
 const DAYS_BEHIND = Math.ceil(DAY_BUFFER_SIZE / 2 - 1);
@@ -76,6 +85,7 @@ async function initialize() {
 async function advanceDay() {
 	curDate = addDays(curDate, 1);
 	await displayPokemon(curDate);
+	resizeEntry();
 
 	// cache one more day out
 	await dateToPokemon(addDays(curDate, DAYS_AHEAD));
@@ -84,6 +94,7 @@ async function advanceDay() {
 async function rewindDay() {
 	curDate = subDays(curDate, 1);
 	await displayPokemon(curDate);
+	resizeEntry();
 
 	// cache one more day behind
 	await dateToPokemon(subDays(curDate, DAYS_BEHIND));
@@ -92,7 +103,7 @@ async function rewindDay() {
 async function displayPokemon(date: Date) {
 	$("#day").text(format(curDate, "EEEE").toUpperCase());
 	$("#date-string").text(format(curDate, "MMMM d").toUpperCase());
-	$("#year").text(format(curDate, "y"))
+	$("#year").text(format(curDate, "y"));
 
 	const pokemon = await dateToPokemon(date);
 
@@ -112,6 +123,7 @@ async function displayPokemon(date: Date) {
 		sample<PokemonSpeciesFlavorTextEntry>(englishFlavTexts);
 	// this weird invisible char keeps showing up
 	$("#entry").text(flavTextEntry.flavor_text.replace("", " "));
+	resizeEntry();
 	$("#ver").text(`(ver: ${flavTextEntry.version.name.replace("-", " ")})`);
 
 	$("#type").text(
@@ -177,3 +189,29 @@ function formatNoun(str: string) {
 function sample<T>(arr: T[]): T {
 	return arr[Math.floor(Math.random() * arr.length)];
 }
+
+function resizeEntry() {
+	resizeText({
+		element: $("#entry")!,
+		parent: $("#entry-box")!,
+	});
+}
+
+function resizeText({ element, parent }: ResizableText) {
+	const parentHeight = parent.height()!;
+	let elementHeight = element.height()!;
+	let fontSize = parseInt(element.css("font-size"));
+	while (elementHeight < parentHeight) {
+		fontSize++;
+		element.css("font-size", `${fontSize}px`);
+		elementHeight = element.height()!;
+	}
+	// TODO: Come up with an actual overflow detection method
+	fontSize -= 4; // this is hacky af but it works a lot so far
+	element.css("font-size", `${fontSize}px`);
+}
+
+const isOverflown = (
+	{ clientHeight, clientWidth }: HTMLElement,
+	{ height, width }: Dimensions
+) => clientHeight > height || clientWidth > width;
