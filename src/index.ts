@@ -1,4 +1,5 @@
 import "./main.css";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { shuffle } from "shuffle-seed";
 import { Key } from "ts-key-enum";
 import CPokedex, {
@@ -25,6 +26,8 @@ type Dimensions = {
 	width: number;
 };
 
+const fpPromise = FingerprintJS.load();
+
 // initialize globals
 const DAY_BUFFER_SIZE = 7; // curDay inclusive
 const DAYS_BEHIND = Math.ceil(DAY_BUFFER_SIZE / 2 - 1);
@@ -48,9 +51,11 @@ document.onclick = (ev) => {
 	const width = body.innerWidth();
 
 	if (width) {
-		if (clientX < width / 2) {
+		if (clientX < width / 3) {
+			// first third of screen
 			rewindDay().catch(console.error);
-		} else {
+		} else if (clientX > width - width / 3) {
+			// last third of screen
 			advanceDay().catch(console.error);
 		}
 	} else {
@@ -114,17 +119,12 @@ async function displayPokemon(date: Date) {
 		pokemon.pokemon.sprites.other["official-artwork"].front_default
 	);
 
-	const englishFlavTexts = pokemon.species.flavor_text_entries.filter(
-		(fText) => {
-			return fText.language.name == "en";
-		}
-	);
-	const flavTextEntry =
-		sample<PokemonSpeciesFlavorTextEntry>(englishFlavTexts);
 	// this weird invisible char keeps showing up
-	$("#entry").text(flavTextEntry.flavor_text.replace("", " "));
+	$("#entry").text(pokemon.flavorText.flavor_text.replace("", " "));
 	resizeEntry();
-	$("#ver").text(`(ver: ${flavTextEntry.version.name.replace("-", " ")})`);
+	$("#ver").text(
+		`(ver: ${pokemon.flavorText.version.name.replace("-", " ")})`
+	);
 
 	$("#type").text(
 		formatNoun(
@@ -170,9 +170,17 @@ async function dateToPokemon(date: Date) {
 		await fetch(url, { method: "GET", mode: "no-cors" });
 	}
 
+	// get the deterministic flavor text entry
+	const englishFlavTexts = species.flavor_text_entries.filter((fText) => {
+		return fText.language.name == "en";
+	});
+	const fp = await fpPromise;
+	const flavorText = shuffle(englishFlavTexts, await fp.get())[0];
+
 	return {
 		pokemon,
 		species,
+		flavorText,
 	};
 }
 

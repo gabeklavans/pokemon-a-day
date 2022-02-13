@@ -32,6 +32,7 @@
     "workbox-webpack-plugin": "^6.4.2"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.3.2",
     "date-fns": "^2.28.0",
     "favicons-webpack-plugin": "^5.0.2",
     "jquery": "^3.6.0",
