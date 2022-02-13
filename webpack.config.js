@@ -13,7 +13,7 @@ const stylesHandler = "style-loader";
 
 const config = {
 	entry: "./src/index.ts",
-	watch: true,
+	// watch: true,
 	output: {
 		path: path.resolve(__dirname, "docs"),
 		clean: true,
