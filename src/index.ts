@@ -6,7 +6,6 @@ import CPokedex, {
 	Pokedex,
 	Pokemon,
 	PokemonSpecies,
-	PokemonSpeciesFlavorTextEntry,
 } from "pokedex-promise-v2";
 const P = new CPokedex();
 import getDayOfYear from "date-fns/getDayOfYear";
@@ -74,35 +73,18 @@ initialize()
 
 async function initialize() {
 	await displayPokemon(curDate);
-
-	// cache pokemon in interval around current date
-	const daysBuffer = eachDayOfInterval({
-		start: subDays(curDate, DAYS_BEHIND),
-		end: addDays(curDate, DAYS_AHEAD),
-	});
-
-	for (const day of daysBuffer) {
-		// fetch the pokemon so the cache can catch it
-		await dateToPokemon(day);
-	}
 }
 
 async function advanceDay() {
 	curDate = addDays(curDate, 1);
 	await displayPokemon(curDate);
 	resizeEntry();
-
-	// cache one more day out
-	await dateToPokemon(addDays(curDate, DAYS_AHEAD));
 }
 
 async function rewindDay() {
 	curDate = subDays(curDate, 1);
 	await displayPokemon(curDate);
 	resizeEntry();
-
-	// cache one more day behind
-	await dateToPokemon(subDays(curDate, DAYS_BEHIND));
 }
 
 async function displayPokemon(date: Date) {
