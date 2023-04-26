@@ -30,6 +30,7 @@
     "typescript": "^5.0.4",
     "webpack": "^5.80.0",
     "webpack-cli": "^5.0.2",
+    "webpack-pwa-manifest": "^4.3.0",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "dependencies": {
@@ -41,7 +42,6 @@
     "random": "^4.1.0",
     "seedrandom": "^3.0.5",
     "shuffle-seed": "^1.1.6",
-    "ts-key-enum": "^2.0.12",
-    "webpack-pwa-manifest": "^4.3.0"
+    "ts-key-enum": "^2.0.12"
   }
 }
